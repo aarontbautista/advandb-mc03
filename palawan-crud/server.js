@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = app.listen(config.palawan.port, () => {
+    console.log("Palawan CRUD");
     console.log(`Express running → PORT ${server.address().port}`);
 });
 

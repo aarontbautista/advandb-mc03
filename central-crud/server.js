@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = app.listen(config.central.port, () => {
+    console.log("Central CRUD");
     console.log(`Express running → PORT ${server.address().port}`);
 });
 

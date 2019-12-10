@@ -31,6 +31,7 @@ app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const serverListener = server.listen(8080, () => {
+    console.log("Client Server");
     console.log(`Express running → PORT ${server.address().port}`);
 });
 

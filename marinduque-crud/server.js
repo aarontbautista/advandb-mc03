@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = app.listen(config.marinduque.port, () => {
+    console.log("Marinduque CRUD");
     console.log(`Express running → PORT ${server.address().port}`);
 });
 
