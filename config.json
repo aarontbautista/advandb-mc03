@@ -6,7 +6,11 @@
         "database": "combined",
         "port": "1111",
         "read": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "SELECT * FROM hpq_aquani LIMIT 100"
+        "readpalawan": "SELECT * FROM hpq_aquani LIMIT 100",
+        "readmarinduque": "SELECT * FROM hpq_aquani LIMIT 100",
+        "update": "SELECT * FROM hpq_aquani LIMIT 100",
+        "updatepalawan": "SELECT * FROM hpq_aquani LIMIT 100",
+        "updatemarinduque": "SELECT * FROM hpq_aquani LIMIT 100"
     },
     "palawan": {
         "host": "localhost",

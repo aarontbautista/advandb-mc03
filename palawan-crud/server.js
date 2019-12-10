@@ -22,6 +22,10 @@ const server = app.listen(config.palawan.port, () => {
     console.log(`Express running → PORT ${server.address().port}`);
 });
 
+app.get('/', (req, res) => {    
+    res.sendStatus(200);
+});
+
 app.get('/read', (req, res) => {    
     connection.query(config.palawan.read, function (error, results, fields) {
         if (error) throw error;

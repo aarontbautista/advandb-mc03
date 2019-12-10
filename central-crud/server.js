@@ -22,6 +22,10 @@ const server = app.listen(config.central.port, () => {
     console.log(`Express running → PORT ${server.address().port}`);
 });
 
+app.get('/', (req, res) => {    
+    res.sendStatus(200);
+});
+
 app.get('/read', (req, res) => {    
     connection.query(config.central.read, function (error, results, fields) {
         if (error) throw error;
@@ -30,8 +34,40 @@ app.get('/read', (req, res) => {
     });
 });
 
+app.get('/readpalawan', (req, res) => {    
+    connection.query(config.central.readpalawan, function (error, results, fields) {
+        if (error) throw error;
+
+        res.send(results);
+    });
+});
+
+app.get('/readmarinduque', (req, res) => {    
+    connection.query(config.central.readmarinduque, function (error, results, fields) {
+        if (error) throw error;
+
+        res.send(results);
+    });
+});
+
 app.get('/update', (req, res) => {    
     connection.query(config.central.update.replace("<param>", req.query.param), function (error, results, fields) {
+        if (error) throw error;
+
+        res.send(results);
+    });
+});
+
+app.get('/updatepalawan', (req, res) => {    
+    connection.query(config.central.updatepalawan.replace("<param>", req.query.param), function (error, results, fields) {
+        if (error) throw error;
+
+        res.send(results);
+    });
+});
+
+app.get('/updatemarinduque', (req, res) => {    
+    connection.query(config.central.updatemarinduque.replace("<param>", req.query.param), function (error, results, fields) {
         if (error) throw error;
 
         res.send(results);
