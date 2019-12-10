@@ -6,6 +6,8 @@ const mysql = require('mysql');
 
 var config = require('../config.json');
 
+var status = 200;
+
 var connection = mysql.createConnection({
     host     : config.central.host,
     user     : config.central.username,
@@ -23,7 +25,16 @@ const server = app.listen(config.central.port, () => {
 });
 
 app.get('/', (req, res) => {    
-    res.sendStatus(200);
+    res.sendStatus(status);
+});
+
+app.get('/toggle', (req, res) => {    
+    if(status == 200) 
+        status = 404;
+    else
+        status = 200;
+
+    res.sendStatus(status);
 });
 
 app.get('/read', (req, res) => {    

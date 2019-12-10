@@ -4,6 +4,8 @@ const app = express();
 
 const mysql = require('mysql');
 
+var status = 200;
+
 var config = require('../config.json');
 
 var connection = mysql.createConnection({
@@ -24,6 +26,15 @@ const server = app.listen(config.palawan.port, () => {
 
 app.get('/', (req, res) => {    
     res.sendStatus(200);
+});
+
+app.get('/toggle', (req, res) => {    
+    if(status == 200) 
+        status = 404;
+    else
+        status = 200;
+
+    res.sendStatus(status);
 });
 
 app.get('/read', (req, res) => {    

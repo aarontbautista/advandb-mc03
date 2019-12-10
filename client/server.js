@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const fetch = require("node-fetch");
+const isReachable = require('is-reachable');
 const app = express();
 const server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -48,11 +49,26 @@ function action(msg) {
         console.log("TCL: action -> msg", msg)
 
         if(currNode == "centralNode") {
-            centralRead();
+            if(checkCentral() == 200) {
+                console.log("TCL: action -> (checker)", (checker))
+                centralRead();
+            } else {
+                centralReadFail();
+            }
         } else if(currNode == "palawanNode") {
-            palawanRead();
+            if(checkPalawan() == 200) {
+                console.log("TCL: action -> (checker)", (checker))
+                palawanRead();
+            } else {
+                centralReadPalawan();
+            }
         } else if(currNode == "marinduqueNode") {
-            marinduqueRead();
+            if(checkMarinduque() == 200) {
+                console.log("TCL: action -> (checker)", (checker))
+                marinduqueRead();
+            } else {
+                centralReadMarinduque();
+            }
         }
     } else if(msg.includes("update")) {
         console.log("TCL: action -> msg", msg)
@@ -60,27 +76,112 @@ function action(msg) {
         var temp = msg.split("|")[1];
 
         if(currNode == "centralNode") {
-            centralUpdate(temp);
+            if(checkCentral() == 200) {
+                centralUpdate(temp);
+            } else {
+                marinduqueUpdate(temp);
+                palawanUpdate(temp);
+            }
         } else if(currNode == "palawanNode") {
-            palawanUpdate(temp);
+            if(checkPalawan() == 200) {
+                console.log("TCL: action -> (checker)", (checker))
+                palawanUpdate(temp);
+            } else {
+                centralUpdatePalawan(temp);
+            }
         } else if(currNode == "marinduqueNode") {
-            marinduqueUpdate(temp);
+            if(checkMarinduque() == 200) {
+                console.log("TCL: action -> (checker)", (checker))
+                marinduqueUpdate(temp);
+            } else {
+                centralUpdateMarinduque(temp);
+            }
         }
 
         console.log("TCL: action -> temp", temp)
     }
  }
 
- const centralRead = async () => {
-    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/read');
+ const checkCentral = async () => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/');
+
+    const data = await response.json();
+
+    return data;
+}
+
+
+const checkPalawan = async () => {
+    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/');
+
+    const data = await response.json();
+
+    return data;
+}
+
+
+const checkMarinduque = async () => {
+    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/');
+
+    const data = await response.json();
+
+    return data;
+}
+
+const centralRead = async () => {
+   const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/read');
+
+   const data = await response.json();
+
+   io.emit("action", data);
+}
+
+const centralReadFail = async () => {
+    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/read');
+
+    const data = await response.json();
+
+    const response2 = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/read');
+
+    const data2 = await response2.json();
+
+   io.emit("action", Object.assign(data, data2));
+}
+
+const centralReadMarinduque = async () => {
+   const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/readmarinduque');
+
+   const data = await response.json();
+
+   io.emit("action", data);
+}
+
+const centralReadPalawan = async () => {
+   const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/readpalawan');
+
+   const data = await response.json();
+
+   io.emit("action", data);
+}
+
+const centralUpdate = async (param) => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/update' + '?param=' + param);
 
     const data = await response.json();
 
     io.emit("action", data);
 }
 
-const centralUpdate = async (param) => {
-    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/update' + '?param=' + param);
+const centralUpdateMarinduque = async (param) => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updatepalawan' + '?param=' + param);
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
+
+const centralUpdatePalawan = async (param) => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updatemarinduque' + '?param=' + param);
 
     const data = await response.json();
 

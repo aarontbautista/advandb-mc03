@@ -6,6 +6,8 @@ const mysql = require('mysql');
 
 var config = require('../config.json');
 
+var status = 200;
+
 var connection = mysql.createConnection({
     host     : config.marinduque.host,
     user     : config.marinduque.username,
@@ -24,6 +26,15 @@ const server = app.listen(config.marinduque.port, () => {
 
 app.get('/', (req, res) => {    
     res.sendStatus(200);
+});
+
+app.get('/toggle', (req, res) => {    
+    if(status == 200) 
+        status = 404;
+    else
+        status = 200;
+
+    res.sendStatus(status);
 });
 
 app.get('/read', (req, res) => {    
