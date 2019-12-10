@@ -29,5 +29,9 @@
         "port": "3333",
         "read": "SELECT * FROM hpq_aquani LIMIT 100",
         "update": "SELECT * FROM hpq_aquani LIMIT 100"
-	}
+	},
+    "transactions":{
+        "ip": "localhost",
+        "port": "8000"
+    }
 }

@@ -49,26 +49,29 @@ function action(msg) {
         console.log("TCL: action -> msg", msg)
 
         if(currNode == "centralNode") {
-            if(checkCentral() == 200) {
-                console.log("TCL: action -> (checker)", (checker))
-                centralRead();
-            } else {
-                centralReadFail();
-            }
+            checkCentral().then(function(result) {
+                if(result == 200) {
+                    centralRead();
+                } else {
+                    centralReadFail();
+                }
+            });
         } else if(currNode == "palawanNode") {
-            if(checkPalawan() == 200) {
-                console.log("TCL: action -> (checker)", (checker))
-                palawanRead();
-            } else {
-                centralReadPalawan();
-            }
+            checkPalawan().then(function(result) {
+                if(result == 200) {
+                    palawanRead();
+                } else {
+                    centralReadPalawan();
+                }
+            });
         } else if(currNode == "marinduqueNode") {
-            if(checkMarinduque() == 200) {
-                console.log("TCL: action -> (checker)", (checker))
-                marinduqueRead();
-            } else {
-                centralReadMarinduque();
-            }
+            checkMarinduque().then(function(result) {
+                if(result == 200) {
+                    marinduqueRead();
+                } else {
+                    centralReadMarinduque();
+                }
+            });
         }
     } else if(msg.includes("update")) {
         console.log("TCL: action -> msg", msg)
@@ -76,26 +79,30 @@ function action(msg) {
         var temp = msg.split("|")[1];
 
         if(currNode == "centralNode") {
-            if(checkCentral() == 200) {
-                centralUpdate(temp);
-            } else {
-                marinduqueUpdate(temp);
-                palawanUpdate(temp);
-            }
+            checkCentral().then(function(result) {
+                if(result == 200) {
+                    centralUpdate(temp);
+                } else {
+                    marinduqueUpdate(temp);
+                    palawanUpdate(temp);
+                }
+            });
         } else if(currNode == "palawanNode") {
-            if(checkPalawan() == 200) {
-                console.log("TCL: action -> (checker)", (checker))
-                palawanUpdate(temp);
-            } else {
-                centralUpdatePalawan(temp);
-            }
+            checkPalawan().then(function(result) {
+                if(result == 200) {
+                    palawanUpdate(temp);
+                } else {
+                    centralUpdatePalawan(temp);
+                }
+            });
         } else if(currNode == "marinduqueNode") {
-            if(checkMarinduque() == 200) {
-                console.log("TCL: action -> (checker)", (checker))
-                marinduqueUpdate(temp);
-            } else {
-                centralUpdateMarinduque(temp);
-            }
+            checkMarinduque().then(function(result) {
+                if(result == 200) {
+                    marinduqueUpdate(temp);
+                } else {
+                    centralUpdateMarinduque(temp);
+                }
+            });
         }
 
         console.log("TCL: action -> temp", temp)
@@ -105,7 +112,7 @@ function action(msg) {
  const checkCentral = async () => {
     const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/');
 
-    const data = await response.json();
+    const data = await response.status;
 
     return data;
 }
@@ -114,7 +121,7 @@ function action(msg) {
 const checkPalawan = async () => {
     const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/');
 
-    const data = await response.json();
+    const data = await response.status;
 
     return data;
 }
@@ -123,7 +130,7 @@ const checkPalawan = async () => {
 const checkMarinduque = async () => {
     const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/');
 
-    const data = await response.json();
+    const data = await response.status;
 
     return data;
 }
