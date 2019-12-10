@@ -1,0 +1,29 @@
+{
+	"central": {
+        "host": "localhost",
+        "username": "root",
+        "password": "password",
+        "database": "combined",
+        "port": "1111",
+        "read": "SELECT * FROM hpq_aquani",
+        "update": "SELECT * FROM hpq_aquani"
+    },
+    "palawan": {
+        "host": "localhost",
+        "username": "root",
+        "password": "password",
+        "database": "palawan",
+        "port": "2222",
+        "read": "SELECT * FROM hpq_aquani",
+        "update": "SELECT * FROM hpq_aquani"
+    },
+    "marinduque": {
+        "host": "localhost",
+        "username": "root",
+        "password": "password",
+        "database": "marinduque",
+        "port": "3333",
+        "read": "SELECT * FROM hpq_aquani",
+        "update": "SELECT * FROM hpq_aquani"
+	}
+}
