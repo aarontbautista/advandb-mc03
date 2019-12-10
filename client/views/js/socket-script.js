@@ -19,7 +19,9 @@ $(function () {
         });
         
 		$('#update').click(function(e){
-            socket.emit('action', "update");
+			var temp = prompt("What string/character do you want to concatenate?");
+
+            socket.emit('action', "update|" + temp);
 
 			return false;
 		});

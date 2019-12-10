@@ -33,19 +33,19 @@ app.get('/', (req, res) => {
 
 function action(msg) {
     if(msg == "centralNode") {
-        console.log(msg);
+        console.log("TCL: action -> msg", msg)
 
         currNode = msg;
     } else if(msg == "palawanNode") {
-        console.log(msg);
+        console.log("TCL: action -> msg", msg)
 
         currNode = msg;
     } else if(msg == "marinduqueNode") {
-        console.log(msg);
+        console.log("TCL: action -> msg", msg)
 
         currNode = msg;
     } else if(msg == "read") {
-        console.log(msg);
+        console.log("TCL: action -> msg", msg)
 
         if(currNode == "centralNode") {
             centralRead();
@@ -54,16 +54,20 @@ function action(msg) {
         } else if(currNode == "marinduqueNode") {
             marinduqueRead();
         }
-    } else if(msg == "update") {
-        console.log(msg);
+    } else if(msg.includes("update")) {
+        console.log("TCL: action -> msg", msg)
+
+        var temp = msg.split("|")[1];
 
         if(currNode == "centralNode") {
-            centralUpdate();
+            centralUpdate(temp);
         } else if(currNode == "palawanNode") {
-            palawanUpdate();
+            palawanUpdate(temp);
         } else if(currNode == "marinduqueNode") {
-            marinduqueUpdate();
+            marinduqueUpdate(temp);
         }
+
+        console.log("TCL: action -> temp", temp)
     }
  }
 
@@ -75,8 +79,8 @@ function action(msg) {
     io.emit("action", data);
 }
 
-const centralUpdate = async () => {
-    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/update');
+const centralUpdate = async (param) => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/update' + '?param=' + param);
 
     const data = await response.json();
 
@@ -91,8 +95,8 @@ const marinduqueRead = async () => {
     io.emit("action", data);
 }
 
-const marinduqueUpdate = async () => {
-    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/update');
+const marinduqueUpdate = async (param) => {
+    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/update' + '?param=' + param);
 
     const data = await response.json();
 
@@ -107,8 +111,8 @@ const palawanRead = async () => {
     io.emit("action", data);
 }
 
-const palawanUpdate = async () => {
-    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/update');
+const palawanUpdate = async (param) => {
+    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/update' + '?param=' + param);
 
     const data = await response.json();
 

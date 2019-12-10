@@ -31,7 +31,7 @@ app.get('/read', (req, res) => {
 });
 
 app.get('/update', (req, res) => {    
-    connection.query(config.central.update, function (error, results, fields) {
+    connection.query(config.central.update.replace("<param>", req.query.param), function (error, results, fields) {
         if (error) throw error;
 
         res.send(results);
