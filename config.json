@@ -8,9 +8,9 @@
         "read": "SELECT * FROM hpq_aquani LIMIT 100",
         "readpalawan": "SELECT * FROM hpq_aquani LIMIT 100",
         "readmarinduque": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "SELECT * FROM hpq_aquani LIMIT 100",
-        "updatepalawan": "SELECT * FROM hpq_aquani LIMIT 100",
-        "updatemarinduque": "SELECT * FROM hpq_aquani LIMIT 100"
+        "update": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')",
+        "updatepalawan": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')",
+        "updatemarinduque": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')"
     },
     "palawan": {
         "host": "localhost",
@@ -19,7 +19,7 @@
         "database": "palawan",
         "port": "2222",
         "read": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "SELECT * FROM hpq_aquani LIMIT 100"
+        "update": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')"
     },
     "marinduque": {
         "host": "localhost",
@@ -28,7 +28,7 @@
         "database": "marinduque",
         "port": "3333",
         "read": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "SELECT * FROM hpq_aquani LIMIT 100"
+        "update": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')"
 	},
     "transactions":{
         "ip": "localhost",

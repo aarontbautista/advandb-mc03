@@ -172,7 +172,7 @@ const centralReadPalawan = async () => {
 }
 
 const centralUpdate = async (param) => {
-    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/update' + '?param=' + param);
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updateT' + '?param=' + param);
 
     const data = await response.json();
 
@@ -180,7 +180,7 @@ const centralUpdate = async (param) => {
 }
 
 const centralUpdateMarinduque = async (param) => {
-    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updatepalawan' + '?param=' + param);
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updatepalawanT' + '?param=' + param);
 
     const data = await response.json();
 
@@ -188,7 +188,7 @@ const centralUpdateMarinduque = async (param) => {
 }
 
 const centralUpdatePalawan = async (param) => {
-    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updatemarinduque' + '?param=' + param);
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/updatemarinduqueT' + '?param=' + param);
 
     const data = await response.json();
 
@@ -204,7 +204,7 @@ const marinduqueRead = async () => {
 }
 
 const marinduqueUpdate = async (param) => {
-    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/update' + '?param=' + param);
+    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/updateT' + '?param=' + param);
 
     const data = await response.json();
 
@@ -220,7 +220,7 @@ const palawanRead = async () => {
 }
 
 const palawanUpdate = async (param) => {
-    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/update' + '?param=' + param);
+    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/updateT' + '?param=' + param);
 
     const data = await response.json();
 
