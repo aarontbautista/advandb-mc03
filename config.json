@@ -5,8 +5,8 @@
         "password": "password",
         "database": "combined",
         "port": "1111",
-        "read": "SELECT * FROM hpq_aquani",
-        "update": "SELECT * FROM hpq_aquani"
+        "read": "SELECT * FROM hpq_aquani LIMIT 100",
+        "update": "SELECT * FROM hpq_aquani LIMIT 100"
     },
     "palawan": {
         "host": "localhost",
@@ -14,8 +14,8 @@
         "password": "password",
         "database": "palawan",
         "port": "2222",
-        "read": "SELECT * FROM hpq_aquani",
-        "update": "SELECT * FROM hpq_aquani"
+        "read": "SELECT * FROM hpq_aquani LIMIT 100",
+        "update": "SELECT * FROM hpq_aquani LIMIT 100"
     },
     "marinduque": {
         "host": "localhost",
@@ -23,7 +23,7 @@
         "password": "password",
         "database": "marinduque",
         "port": "3333",
-        "read": "SELECT * FROM hpq_aquani",
-        "update": "SELECT * FROM hpq_aquani"
+        "read": "SELECT * FROM hpq_aquani LIMIT 100",
+        "update": "SELECT * FROM hpq_aquani LIMIT 100"
 	}
 }

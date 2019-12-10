@@ -46,6 +46,37 @@ $(function () {
 		});
 
 		socket.on('action', function(msg){
-			$('BODY').append($('<li>').text(msg));
+			displayContent(msg);
 		});
 	  });
+
+	  function displayContent(data) {
+		$("#content").html("");
+		
+		var table = "<table id='table' style='width:80vw'>";
+	
+		table += "<thead><tr>";
+	
+		for(let j = 0; j < Object.keys(data[0]).length; j++) {
+			table += "<th>" + Object.keys(data[0])[j] + "</th>";
+		}
+	
+		table += "</tr></thead>";
+	
+		table += "<tbody>"
+	
+		for(let i = 0; i < data.length; i++) {
+			table += "<tr>";
+			for(let j = 0; j < Object.keys(data[i]).length; j++) {
+				table += "<td>" + data[i][Object.keys(data[i])[j]] + "</td>";
+			}
+			table += "</tr>";
+		}
+	
+		table += "</tbody>"
+	
+		table += "</table>"
+	
+		$("#content").html(table);
+		$("#table").DataTable();
+	}

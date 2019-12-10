@@ -1,21 +1,13 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const fetch = require("node-fetch");
 const app = express();
 const server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var config = require('../config.json');
 
-const mysql = require('mysql');
-
-var connection = mysql.createConnection({
-    host     : config.central.host,
-    user     : config.central.username,
-    password : config.central.password,
-    database : config.central.database
-});
-
-connection.connect();
+var currNode = "centralNode";
 
 io.on('connection', function(socket) {
 	console.log('Client connected');
@@ -41,37 +33,84 @@ app.get('/', (req, res) => {
 
 function action(msg) {
     if(msg == "centralNode") {
-        connection = mysql.createConnection({
-            host     : config.central.host,
-            user     : config.central.username,
-            password : config.central.password,
-            database : config.central.database
-        });
-
-        connection.connect();
-
         console.log(msg);
+
+        currNode = msg;
     } else if(msg == "palawanNode") {
-        connection = mysql.createConnection({
-            host     : config.palawan.host,
-            user     : config.palawan.username,
-            password : config.palawan.password,
-            database : config.palawan.database
-        });
-
-        connection.connect();
-
         console.log(msg);
+
+        currNode = msg;
     } else if(msg == "marinduqueNode") {
-        connection = mysql.createConnection({
-            host     : config.marinduque.host,
-            user     : config.marinduque.username,
-            password : config.marinduque.password,
-            database : config.marinduque.database
-        });
-
-        connection.connect();
-
         console.log(msg);
+
+        currNode = msg;
+    } else if(msg == "read") {
+        console.log(msg);
+
+        if(currNode == "centralNode") {
+            centralRead();
+        } else if(currNode == "palawanNode") {
+            palawanRead();
+        } else if(currNode == "marinduqueNode") {
+            marinduqueRead();
+        }
+    } else if(msg == "update") {
+        console.log(msg);
+
+        if(currNode == "centralNode") {
+            centralUpdate();
+        } else if(currNode == "palawanNode") {
+            palawanUpdate();
+        } else if(currNode == "marinduqueNode") {
+            marinduqueUpdate();
+        }
     }
  }
+
+ const centralRead = async () => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/read');
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
+
+const centralUpdate = async () => {
+    const response = await fetch('http://' + config.central.host + ':' + config.central.port + '/update');
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
+
+const marinduqueRead = async () => {
+    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/read');
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
+
+const marinduqueUpdate = async () => {
+    const response = await fetch('http://' + config.marinduque.host + ':' + config.marinduque.port + '/update');
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
+
+const palawanRead = async () => {
+    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/read');
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
+
+const palawanUpdate = async () => {
+    const response = await fetch('http://' + config.palawan.host + ':' + config.palawan.port + '/update');
+
+    const data = await response.json();
+
+    io.emit("action", data);
+}
