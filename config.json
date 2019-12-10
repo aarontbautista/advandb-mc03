@@ -5,12 +5,12 @@
         "password": "password",
         "database": "combined",
         "port": "1111",
-        "read": "SELECT * FROM hpq_aquani LIMIT 100",
-        "readpalawan": "SELECT * FROM hpq_aquani LIMIT 100",
-        "readmarinduque": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')",
-        "updatepalawan": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')",
-        "updatemarinduque": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')"
+        "read": "SELECT * FROM hpq_aquani",
+        "readpalawan": "SELECT * FROM hpq_aquani",
+        "readmarinduque": "SELECT * FROM hpq_aquani",
+        "update": "START TRANSACTION; UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>'); COMMIT;",
+        "updatepalawan": "START TRANSACTION; UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>'); COMMIT;",
+        "updatemarinduque": "START TRANSACTION; UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>'); COMMIT;"
     },
     "palawan": {
         "host": "localhost",
@@ -18,8 +18,8 @@
         "password": "password",
         "database": "palawan",
         "port": "2222",
-        "read": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')"
+        "read": "SELECT * FROM hpq_aquani",
+        "update": "START TRANSACTION; UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>'); COMMIT;"
     },
     "marinduque": {
         "host": "localhost",
@@ -27,8 +27,8 @@
         "password": "password",
         "database": "marinduque",
         "port": "3333",
-        "read": "SELECT * FROM hpq_aquani LIMIT 100",
-        "update": "UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>')"
+        "read": "SELECT * FROM hpq_aquani",
+        "update": "START TRANSACTION; UPDATE hpq_aquani SET aquanitype_o = CONCAT(aquanitype_o,'<param>'); COMMIT;"
 	},
     "transactions":{
         "ip": "localhost",
