@@ -14,6 +14,6 @@
     "is-reachable": "^4.0.0",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
